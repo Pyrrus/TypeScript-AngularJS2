@@ -11,9 +11,22 @@ import { Task } from './task.model';
         <input [(ngModel)]="childSelectedTask.description">
       </div>
       <div>
-        <label>Enter Task ID:</label>
-        <input [(ngModel)]="childSelectedTask.id">
-        <button (click)="doneClicked()">Done</button>
+        <label>Enter Priority:</label>
+        <select [(ngModel)]="childSelectedTask.priority">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">low</option>
+        </select>
+      </div>
+      <div>
+        <label>Enter Task Type:</label>
+        <select [(ngModel)]="childSelectedTask.type">
+            <option value="work">Work</option>
+            <option value="home">Home</option>
+            <option value="hobby">Hobby</option>
+        </select>
+        <button (click)="editClicked()">Edit</button>
+        <button (click)="doneClicked()">done</button>
       </div>
     </div>
   `
@@ -22,7 +35,10 @@ import { Task } from './task.model';
 export class EditTaskComponent {
   @Input() childSelectedTask: Task;
   @Output() doneClickedSender = new EventEmitter();
-  doneClicked() {
+  editClicked() {
     this.doneClickedSender.emit();
+  }
+  doneClicked() {
+    this.childSelectedTask.markDone();
   }
 }
